@@ -6,5 +6,5 @@ It navigate to [Venus Blog](http://www.venusgo.com/search/node/clasex) and extra
 
 ```golang
     go build -o post-scrapper .
-    ./post-scrapper
+    ./post-scrapper http://www.venusgo.com/search/node/clasex?page=1
 ```
