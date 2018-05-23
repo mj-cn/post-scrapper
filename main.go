@@ -1,11 +1,12 @@
 package main
 
 import (
-	"log"
-	"gopkg.in/mgo.v2"
 	"fmt"
+	"log"
 	"os"
 	"strings"
+
+	"gopkg.in/mgo.v2"
 
 	"github.com/gocolly/colly"
 	"github.com/gocolly/colly/debug"
@@ -26,19 +27,23 @@ type Post struct {
 	Detalle    PostDetail
 }
 type PostDAO struct {
-	Server string
+	Server   string
 	Database string
 }
 
 var db *mgo.Database
+
 const (
-	category = "Entretenimiento"
+	category   = "Entretenimiento"
 	collection = "post"
 )
 
 func main() {
-	dao := PostDAO {
-		Server: "localhost:27017",
+	mongodbServer := os.Args[2]
+	url := os.Args[1]
+	fmt.Println("MongoDB: ", mongodbServer)
+	dao := PostDAO{
+		Server:   mongodbServer,
 		Database: "posts-escuelita",
 	}
 
@@ -87,10 +92,9 @@ func main() {
 		}
 	})
 
-	c.Visit(os.Args[1])
-	
-}
+	c.Visit(url)
 
+}
 
 func (p *PostDAO) connect() {
 	session, err := mgo.Dial(p.Server)
@@ -100,7 +104,7 @@ func (p *PostDAO) connect() {
 	db = session.DB(p.Database)
 }
 
-func (p *PostDAO) insert(post Post) error{
+func (p *PostDAO) insert(post Post) error {
 	err := db.C(collection).Insert(post)
 	return err
 }

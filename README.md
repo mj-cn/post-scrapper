@@ -4,7 +4,14 @@ It navigate to [Venus Blog](http://www.venusgo.com/search/node/clasex) and extra
 
 ## Build and Run
 
-```golang
-    go build -o post-scrapper .
-    ./post-scrapper http://www.venusgo.com/search/node/clasex?page=1
+```sh
+    cd .docker
+    sh ./build-run.sh
+```
+
+## Run
+
+```sh
+    cd .docker
+    sh ./run.sh
 ```
